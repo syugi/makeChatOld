@@ -1,6 +1,6 @@
 .chatDiv{
-  width:500px;  
-  height:800px;
+  width:400px;  
+  height:500px;
 }
 .chatList{
   height:60%;
@@ -8,19 +8,20 @@
 .chatList span{
   padding:7px; 
   margin:5px;
-  border-radius: 0.25rem;
 }
 
 .leftMsg{
   float:left;
   background:#c3dafe;
-  clear: both
+  clear: both;
+  border-radius: 0.1rem 1rem 1rem;
 }
 
 .rightMsg{
   float:right;
    background:#feb2b2;
-   clear: both
+   clear: both;
+   border-radius: 1rem 1rem 0.1rem;
 }
 
 .continueMsg{
@@ -35,33 +36,3 @@
 .continueMsg:hover{
    background:#718096;
 } 
-/*.arrow_box {*/
-/*  margin-left: 50px;*/
-/*  width: 300px;*/
-/*	position: relative;*/
-/*	background: #ffffff;*/
-/*	border: 1px solid #c2e1f5;*/
-/*}*/
-/*.arrow_box:after, .arrow_box:before {*/
-/*	right: 100%;*/
-/*	top: 50%;*/
-/*	border: solid transparent;*/
-/*	content: " ";*/
-/*	height: 0;*/
-/*	width: 0;*/
-/*	position: absolute;*/
-/*	pointer-events: none;*/
-/*}*/
-
-/*.arrow_box:after {*/
-/*	border-color: rgba(255, 255, 255, 0);*/
-/*	border-right-color: #ffffff;*/
-/*	border-width: 5px;*/
-/*	margin-top: -5px;*/
-/*}*/
-/*.arrow_box:before {*/
-/*	border-color: rgba(194, 225, 245, 0);*/
-/*	border-right-color: #c2e1f5;*/
-/*	border-width: 6px;*/
-/*	margin-top: -6px;*/
-/*}*/

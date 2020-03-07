@@ -16,6 +16,10 @@ let timeId = "";
 
 function fn_sendMsg(msg,position){
   
+  if(msg == "" || msg == null){
+    return;
+  }
+
   // const newId = chats.length + 1;
   const li = document.createElement("li");
 
@@ -70,14 +74,14 @@ function autoChat(){
 
   if(msg == "stop"){
     fn_sendMsg("계속","continue");
-    clearInterval(timeId);
+    //clearInterval(timeId);
     return;
   }
 
   if(msg != "" && msg != null){   
     fn_sendMsg(msg,"left");
   }else{
-    clearInterval(timeId);
+    //clearInterval(timeId);
   }
   
 }
@@ -87,8 +91,12 @@ function handleContinue(event){
  
   var el = document.getElementById(chats.length + 1);
   chatList.removeChild(el);
-  timeId = setInterval(autoChat, 1000);
+  //timeId = setInterval(autoChat, 1000);
   
+}
+
+function handleChatListClick(event){
+  autoChat();
 }
 
 function init(){
@@ -96,8 +104,11 @@ function init(){
   //loadChats();
   chatInputForm.addEventListener("submit",handleSubmit);
 
-  timeId = setInterval(autoChat, 1000);
+  //자동표시 
+  //timeId = setInterval(autoChat, 1000);
    
+  chatList.addEventListener("click",handleChatListClick);
+  
 }
 
 init();

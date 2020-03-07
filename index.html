@@ -13,10 +13,15 @@
           <li><span class="leftMsg">안녕</span></li>
       </ul>
       
-      <form class="chatInputForm flex h-10 bg-gray-200 clear-both">
-         
-        <input style="width:85%;" type="text" class="border border-blue w-10/12">
-        <button style="width:15%;" >보내기</button>
+      <form class="chatInputForm flex flex-col  bg-gray-200 clear-both">
+        <div class="flex">
+          <input type="radio" name="chk_info" value="your" >상대방
+          <input type="radio" name="chk_info" value="my" >나 
+        </div>
+        <div class="flex">
+          <input style="width:85%;" type="text" class="border border-blue w-10/12">
+          <button style="width:15%;" >보내기</button>
+        </div>
       </form>
       
     </div>
