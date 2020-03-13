@@ -6,34 +6,13 @@ chatList   = document.querySelector(".chatList");
 
 let chats = [];
 
-// position : 위치(left,right,center) , 위치, 타입(msg:메세지, img:이미지, btn:버튼)
-
-let autoChats = [
-    { position:"left",type:"Youtu" , name:  "선생님", msg: "WGSwKW3dPdA", sendYn: false },
-    { position:"left",type:"Img" , name:  "선생님", msg: "temp_img1.jpeg", sendYn: false },
-    { position:"left", type:"Msg" ,name:  "선생님", msg: "인공지능의 겨울은 ...", sendYn: false },
-    { position:"left", type:"Msg" ,name:  "선생님", msg: "맞아요! 센스가 좀 있군요!", sendYn: false },
-     { position:"left", type:"Profile" ,name:  "선생님", msg:"profile_1.jpeg", sendYn: false },
-    { position:"right", type:"Msg" ,name: "학생", msg: "인공지능의 발전이 멈춰있던 시기인가....?", sendYn: false },
-    { position:"right", type:"Msg" ,name: "학생", msg: "인공지능의겨울?", sendYn: false },
-    { position:"right", type:"Msg" ,name: "학생", msg: "이번 주제는 꽤나 재밌어 보이는데?", sendYn: false },
-    { position:"right", type:"Msg" ,name: "학생", msg: "반가워요!!:)", sendYn: false },
-    { position:"right", type:"Profile" ,name: "학생", msg:"profile_2.jpg", sendYn: false },
-    { position:"left", type:"Msg" ,name:  "선생님", msg: "오늘 이야기의 주제는 '인공지능의 겨울'이에요.", sendYn: false },
-    { position:"left", type:"Msg" ,name:  "선생님", msg: "안녕하세요:) 저는 에이림입니다.", sendYn: false },
-    { position:"left", type:"Msg" ,name:  "선생님", msg: "지금 바로 시작합니다.", sendYn: false },
-    { position:"left", type:"Msg" ,name: "학생", msg: "인공지능, 텐서플로우 2.0으로 읽다.", sendYn: false },
-    { position:"left", type:"Profile" ,name: "선생님", msg:"profile_1.jpeg", sendYn: false }
-];
-
-
 let timeId = "";
 
 // function saveChats(){
 //   localStorage.setItem(CHATS_LS, JSON.stringfy(chats));
 // }
 
-function fn_sendMsg(msg,position,type,name){
+function fn_sendMsg(msg,position,type,id){
   
   if(msg == "" || msg == null){
     return;
@@ -46,7 +25,7 @@ function fn_sendMsg(msg,position,type,name){
 
   //프로필
   if(type == "Profile"){
-    setProfile(position,msg, name);
+    setProfile(position,msg, id);
     return; 
   }
   
@@ -72,7 +51,7 @@ function fn_sendMsg(msg,position,type,name){
   //유튜브 링크 
   }else if(type == "Youtu"){
     
-    fn_sendMsg("http://youtu.be/"+msg,position,"Msg")
+    fn_sendMsg("http://youtu.be/"+msg,position,"Msg");
     
     elmt = document.createElement("img");
     elmt.src = "https://img.youtube.com/vi/"+msg+"/0.jpg";
@@ -142,16 +121,20 @@ function handleSubmit(event){
 // }
 
 
-function autoChat(){
+function sendNextChat(){
 
-  const chatObj = autoChats.pop();
+  const chatObj = chatObjArr.shift();
   
   if(chatObj != '' && chatObj != null){
     
     const msg  = chatObj.msg;
     
     if(msg != '' && msg != null){
-        fn_sendMsg(msg, chatObj.position, chatObj.type, chatObj.name); // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
+        
+        // var chatListAll   = chatList.querySelectorAll("li");
+        // console.log(">>>"+chatListAll[0].id);
+      
+        fn_sendMsg(msg, chatObj.position, chatObj.type, chatObj.id); // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
     }
     
   }
@@ -182,15 +165,15 @@ function handleContinue(event){
  
   var el = document.getElementById(chats.length + 1);
   chatList.removeChild(el);
-  //timeId = setInterval(autoChat, 1000);
+  //timeId = setInterval(sendNextChat, 1000);
   
 }
 
 function handleChatListClick(event){
-  autoChat();
+  sendNextChat();
 }
 
-function setProfile(position,msg,name){
+function setProfile(position,msg,id){
     
     const li = document.createElement("li");
     
@@ -199,7 +182,7 @@ function setProfile(position,msg,name){
     img.classList.add("profileImg");
 
     const span = document.createElement("span");
-    span.innerText = name;
+    span.innerText = id;
     span.classList.add("profileName");
     
    
@@ -218,7 +201,7 @@ function setProfile(position,msg,name){
     chatList.appendChild(li);
     
     //프로필 표시 후 다음메세지 바로 표시
-    autoChat();
+    sendNextChat();
 }
 
 function init(){
@@ -227,7 +210,7 @@ function init(){
   chatInputForm.addEventListener("submit",handleSubmit);
 
   //자동표시 
-  //timeId = setInterval(autoChat, 1000);
+  //timeId = setInterval(sendNextChat, 1000);
    
   chatList.addEventListener("click",handleChatListClick);
 
