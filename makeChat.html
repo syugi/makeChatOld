@@ -9,12 +9,42 @@
   </head>
   <body>
     <div class="wrap">
-      ㅇㅇㅇㅇ
-      <button type="button" class="bg-blue-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="button1_click(); ">채팅추가</button>
+      <div>
+        <button >사용자추가</button>
+        <ul class="userList bg-gray-200  overflow-auto">
+          <li>선생님/왼쪽</li>
+          <li>학생/오른쪽</li>
+        </ul>
+      </div>
       
+      <div class="flex">
+        <div class="mr-4">
+          <input type="radio" id="name1" name="chk_position" value="left" checked='checked' ><label for="name1"  >선생님</label>
+           <input type="radio" id="name2" name="chk_position" value="right" ><label for="name2">학생</label>
+        </div> 
+
+        <select  name="select_type" id="select_type">
+          <option value="Msg" selected="selected">메세지</option>
+          <option value="Img">이미지</option>
+          <option value="Youtu">유튜브</option>
+          <option value="Btn">버튼</option>
+          <option value="Profile">프로필</option>
+        </select>
+      </div>
+    
+      
+      <input id="inputChat" style="width:30%;" type="text" class="border border-blue w-10/12">
+      <button type="button" class="bg-blue-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="addChat_click(); ">채팅추가</button>
+          
+      <!--<input type="file" id="real-input" class="image_inputType_file" accept="img/*" required multiple>-->
+      <!--<button class="browse-btn">사진업로드</button>-->
+
       <button type="button" class="bg-blue-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="location.href='index.html' ">채팅실행하기</button>
     </div>
+    
+    
     <script src="chatList.js"></script>
     <script src="makeChat.js"></script> 
+    <script src="script.js"></script> 
   </body>
 </html>

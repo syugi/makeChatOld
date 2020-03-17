@@ -1,5 +1,13 @@
 
-// position : 위치(left,right,center) , 위치, 타입(msg:메세지, img:이미지, btn:버튼)
+
+
+//*********************************************
+// [채팅리스트] 
+
+// type     : 타입(Msg:메세지, Img:이미지, Btn:버튼 , Youtu:유튜브)
+// userId   : 사용자 아이디 
+// msg      : 메세지 내용 (이미지는 경로)
+//*********************************************
 
 let chatObjArr = [
   // { position:"left", type:"Profile" ,name: "선생님", msg:"profile_1.jpeg", sendYn: false },
@@ -27,3 +35,20 @@ let chatObjArr = [
    
 ];
 
+//*********************************************
+// [친구리스트] 
+// userId   : 사용자 아이디 
+// name     : 사용자 이름 
+// position : 위치(left,right,center) 
+//*********************************************
+
+let userObjArr = [
+  { userId   : "user1" ,
+    name     : "선생님",
+    position : "left"
+  },
+  { userId   : "user2" ,
+    name     : "학생",
+    position : "left"
+  }
+];

@@ -12,7 +12,7 @@ let timeId = "";
 //   localStorage.setItem(CHATS_LS, JSON.stringfy(chats));
 // }
 
-function fn_sendMsg(msg,position,type,id){
+function fn_sendMsg(msg,position,type,userId){
   
   if(msg == "" || msg == null){
     return;
@@ -25,7 +25,7 @@ function fn_sendMsg(msg,position,type,id){
 
   //프로필
   if(type == "Profile"){
-    setProfile(position,msg, id);
+    setProfile(position,msg, userId);
     return; 
   }
   
@@ -50,12 +50,24 @@ function fn_sendMsg(msg,position,type,id){
     
   //유튜브 링크 
   }else if(type == "Youtu"){
+
+
+    //유튜브 형식이 아닌경우 메세지로 처리 
+    if(msg.indexOf("youtu.be") < 0){
+      fn_sendMsg(msg,position,"Msg",userId)
+      return;
+    }
+  
+    fn_sendMsg(msg,position,"Msg");
     
-    fn_sendMsg("http://youtu.be/"+msg,position,"Msg");
+    //유튜브 ID 분리 
+    const msgSplit = msg.split("/");
+    const youtuId  = msgSplit[3];  //유튜브 링크 예시) https://youtu.be/CI0oF5RovCs 
+    console.log("유튜브 ID:"+youtuId);
     
     elmt = document.createElement("img");
-    elmt.src = "https://img.youtube.com/vi/"+msg+"/0.jpg";
-    elmt.onclick = () => { window.open("http://youtu.be/"+msg);};
+    elmt.src = "https://img.youtube.com/vi/"+youtuId+"/0.jpg";
+    elmt.onclick = () => { window.open(msg);};
     elmt.style.cursor = "pointer";
     // elmt.width = "300";
     // elmt.height = "200";
@@ -72,6 +84,8 @@ function fn_sendMsg(msg,position,type,id){
       elmt = document.createElement("a");
       elmt.textContent = msg;
       elmt.href = msg;
+      elmt.style.color = "blue";
+      elmt.style.textDecoration='underline';
       
     //일반 채팅 메세지 
     }else{
@@ -134,7 +148,7 @@ function sendNextChat(){
         // var chatListAll   = chatList.querySelectorAll("li");
         // console.log(">>>"+chatListAll[0].id);
       
-        fn_sendMsg(msg, chatObj.position, chatObj.type, chatObj.id); // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
+        fn_sendMsg(msg, chatObj.position, chatObj.type, chatObj.userId); // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
     }
     
   }
@@ -173,7 +187,7 @@ function handleChatListClick(event){
   sendNextChat();
 }
 
-function setProfile(position,msg,id){
+function setProfile(position,msg,userId){
     
     const li = document.createElement("li");
     
@@ -182,7 +196,7 @@ function setProfile(position,msg,id){
     img.classList.add("profileImg");
 
     const span = document.createElement("span");
-    span.innerText = id;
+    span.innerText = userId;
     span.classList.add("profileName");
     
    
