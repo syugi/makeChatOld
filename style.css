@@ -1,4 +1,33 @@
-.chatDiv{
+/* --------------- index.html -------------------*/
+
+.projectList li{
+  padding:7px; 
+  margin:5px;
+  background-color: #bee3f8;
+  border-radius: 0.25rem;
+}
+
+.projectList span{
+  margin-right : 5px;
+}
+
+.projectList button{
+  background-color: #e2e8f0;
+  border-radius: 0.25rem;
+  padding: 2px 4px;
+  margin : 3px;
+  cursor: pointer;
+}
+
+.projectList button:hover{
+  	background-color: #a0aec0;
+}
+
+
+/* --------------- ChatRun.html -------------------*/
+
+
+.chatRun{
   width:600px;  
   height:700px;
 }
@@ -10,6 +39,7 @@
   padding:7px; 
   margin:5px;
 }
+
 
 .chatMsg{ 
   /*.chatList span, a , .Img, .Youtu{*/
@@ -79,3 +109,10 @@
 .right{
   float:right;
 }
+
+
+
+
+
+
+

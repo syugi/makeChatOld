@@ -1,233 +1,132 @@
-const chatInputForm = document.querySelector(".chatInputForm"),
-chatInput = chatInputForm.querySelector("input"),
-chatList   = document.querySelector(".chatList");
+const projectList   = document.querySelector(".projectList");
 
-// const CHATS_LS = 'chats';
+let projects = [];
 
-let chats = [];
-
-let timeId = "";
-
-// function saveChats(){
-//   localStorage.setItem(CHATS_LS, JSON.stringfy(chats));
-// }
-
-function fn_sendMsg(msg,position,type,userId){
-  
-  if(msg == "" || msg == null){
-    return;
-  }
-
-  // const newId = chats.length + 1;
-  const li = document.createElement("li");
-
-  var elmt;
-
-  //프로필
-  if(type == "Profile"){
-    setProfile(position,msg, userId);
-    return; 
-  }
-  
-  //버튼
-  if(type == "Btn"){
-    elmt = document.createElement("button");
-    elmt.addEventListener("click",handleContinue);
-
-    elmt.classList.add(type);
-    elmt.classList.add(position);
-    
-  //이미지
-  }else if(type == "Img"){
-    
-    elmt = document.createElement("img");
-    elmt.src = msg;
-    // elmt.width = "300";
-    // elmt.height = "200";
-
-    elmt.classList.add(type);
-    elmt.classList.add(position);
-    
-  //유튜브 링크 
-  }else if(type == "Youtu"){
+const userId = "arim"; //일단 하드코딩 
 
 
-    //유튜브 형식이 아닌경우 메세지로 처리 
-    if(msg.indexOf("youtu.be") < 0){
-      fn_sendMsg(msg,position,"Msg",userId)
-      return;
-    }
-  
-    fn_sendMsg(msg,position,"Msg");
-    
-    //유튜브 ID 분리 
-    const msgSplit = msg.split("/");
-    const youtuId  = msgSplit[3];  //유튜브 링크 예시) https://youtu.be/CI0oF5RovCs 
-    console.log("유튜브 ID:"+youtuId);
-    
-    elmt = document.createElement("img");
-    elmt.src = "https://img.youtube.com/vi/"+youtuId+"/0.jpg";
-    elmt.onclick = () => { window.open(msg);};
-    elmt.style.cursor = "pointer";
-    // elmt.width = "300";
-    // elmt.height = "200";
-    
-    elmt.classList.add(type);
-    elmt.classList.add(position);
-   
-  //메세지 
-  }else{
-    
-    //링크가 있는경우 하이퍼링크
-    if(msg.indexOf("http")>-1){
-      
-      elmt = document.createElement("a");
-      elmt.textContent = msg;
-      elmt.href = msg;
-      elmt.style.color = "blue";
-      elmt.style.textDecoration='underline';
-      
-    //일반 채팅 메세지 
-    }else{
-      elmt = document.createElement("span");
-      elmt.innerText = msg;
-    }
-    
-    elmt.classList.add(position+type);
-    
-  }
-  
-  elmt.classList.add("chatMsg"); //채팅 여백 
-  
-  li.id = chats.length + 1;
-  li.appendChild(elmt);
-    
-  chatList.appendChild(li);
-  
-  //스크롤 맨 밑으로 
-  chatList.scrollTop = chatList.scrollHeight;
-  
-  // const chatObj = {
-  //     text :text,
-  //     id: newId
-  // }
-  // chats.push(chatObj);
-  
-  // saveChats();
+/**
+ * 채팅관리 화면으로 이동 
+ */
+function moveChatSetting(prjId){
+  location.href = "chatSetting.html?prjId="+prjId;
 }
 
-function handleSubmit(event){
-  event.preventDefault();
-  const msg = chatInput.value;
-  fn_sendMsg(msg,"right","Msg","");
-  chatInput.value = "";
+/**
+ * 프로젝트 ID 생성
+ */
+function getPrjId(){
+
+  return parseInt(projects[projects.length-1].prjId) + 1;
+}
+
+/**
+ * 프로젝트 생성
+ */
+function createProject(){
+  
+  const newPrjId   = getPrjId();
+  const newPrjName = "NEW PROJECT - "+newPrjId;
+  
+  const prjObj = {
+    id: userId,
+    prjId : newPrjId,
+    prjName : newPrjName
+  };
+  
+  projects.push(prjObj);
+  
+  addProjectList(newPrjId,newPrjName);
+}
+
+/**
+ * 프로젝트 삭제 버튼 이벤트  
+ */
+function handleDeleteClick(event){
+  const btn = event.target;
+  const li  = btn.parentNode;
+  
+  projectList.removeChild(li);
+  
+  const removePrj = projects.filter(function(prj){
+    return prj.prjId !== parseInt(li.id);
+  });
+  
+  projects = removePrj;
+  
+  //console.log(">>> 삭제 후 projects : "+ JSON.stringify(projects ));
 }
 
 
-// function loadChast(){
-//   const loadChats = localStorage.getItem(CHATS_LS)
-//   if(loadChats !== null){
-//     const parsedChats = JSON.parse(loadChats);
-//     parsedChats.forEash(function(chat){
-//       fn_sendMsg(chat,"right");
-//     });
-//   }
-// }
-
-
-function sendNextChat(){
-
-  const chatObj = chatObjArr.shift();
+/**
+ * 프로젝트 수정 버튼 이벤트  
+ */
+function handleModifyClick(event){
   
-  if(chatObj != '' && chatObj != null){
-    
-    const msg  = chatObj.msg;
-    
-    if(msg != '' && msg != null){
-        
-        // var chatListAll   = chatList.querySelectorAll("li");
-        // console.log(">>>"+chatListAll[0].id);
-      
-        fn_sendMsg(msg, chatObj.position, chatObj.type, chatObj.userId); // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
-    }
-    
-  }
- 
-  // const msg = autoChatsA.shift(); 
-
-  // if(msg == "stop"){
-  //   fn_sendMsg("계속","continue");
-  //   //clearInterval(timeId);
-  //   return;
-  // }
-
-  // if(msg != "" && msg != null){   
-  //   fn_sendMsg(msg,"left");
-  // }else{
-    
-  //   const msgB = autoChatsB.shift(); 
-  //   if(msgB != "" && msgB != null){   
-  //     fn_sendMsg(msgB,"right");
-  //   }
-  //   //clearInterval(timeId);
-  // }
+  const btn = event.target;
+  const li  = btn.parentNode;
+  
+  //채팅설정 화면으로 이동
+  moveChatSetting(li.id);
   
 }
 
-function handleContinue(event){
-  event.preventDefault();
- 
-  var el = document.getElementById(chats.length + 1);
-  chatList.removeChild(el);
-  //timeId = setInterval(sendNextChat, 1000);
+/**
+ * 프로젝트 리스트 세팅 
+ * 
+ * @param prjId   : 프로젝트 ID
+ * @param prjName : 프로젝트 명
+ */
+function addProjectList(prjId,prjName){
   
+  const li       = document.createElement("li");
+  const modBtn   = document.createElement("Button");
+  const delBtn   = document.createElement("Button");
+  const idSpan   = document.createElement("span");
+  const nameSpan = document.createElement("span");
+  
+  modBtn.innerText = "수정";
+  modBtn.addEventListener("click", handleModifyClick);
+  
+  delBtn.innerText = "삭제";
+  delBtn.addEventListener("click", handleDeleteClick);
+  
+  idSpan.innerText = prjId;
+  nameSpan.innerText = prjName;
+  
+  li.appendChild(idSpan);
+  li.appendChild(nameSpan);
+  li.appendChild(modBtn);
+  li.appendChild(delBtn);
+  
+  li.id = prjId;
+  
+  projectList.appendChild(li);
+  
+  //console.log(">>> 추가 후 projects : "+ JSON.stringify(projects ));
 }
 
-function handleChatListClick(event){
-  sendNextChat();
+
+/**
+ * 프로젝트 리스트 불러오기 
+ */
+function loadProjects(){
+  
+  //JSON 파일에서 데이터 로드 
+  projects = JSON.parse(projectsData);
+  console.log(">>> projects : "+ JSON.stringify(projects ));
+  
+  projects.forEach(function(project){
+     addProjectList(project.prjId, project.prjName);
+  });
 }
 
-function setProfile(position,msg,userId){
-    
-    const li = document.createElement("li");
-    
-    const img = document.createElement("img");
-    img.src = msg;
-    img.classList.add("profileImg");
-
-    const span = document.createElement("span");
-    span.innerText = userId;
-    span.classList.add("profileName");
-    
-   
-    if(position == "right"){
-      li.appendChild(span);
-      li.appendChild(img);
-      
-    }else{
-      li.appendChild(img);
-      li.appendChild(span);
-    }  
-    
-    li.classList.add("profile");
-    li.classList.add(position);
-    
-    chatList.appendChild(li);
-    
-    //프로필 표시 후 다음메세지 바로 표시
-    sendNextChat();
-}
 
 function init(){
 
-  //loadChats();
-  chatInputForm.addEventListener("submit",handleSubmit);
-
-  //자동표시 
-  //timeId = setInterval(sendNextChat, 1000);
-   
-  chatList.addEventListener("click",handleChatListClick);
-
+  //프로젝트 데이타 불러오기 
+  loadProjects();
+  
 }
 
 init();

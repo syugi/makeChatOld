@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>chatbot test</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="data.json"></script>
+      
+  </head>
+  <body>
+    
+    <div class="wrap">
+      
+      <div class="flex">
+        <input style="width:85%;" type="text" class="border border-blue w-10/12">
+        <button style="width:15%;" >보내기</button>
+      </div>
+        
+        
+      <div class="chatRun">
+        <ul class="chatList bg-gray-200  overflow-auto">
+            <!--<li ><img class="profileImg left" src="test_img.jpeg">상대방</li>-->
+            <li><span class="ml-40">대화가 시작되었습니다</span></li>
+             <!--<li><a class="centerYoutu"  href="http://youtu.be/WGSwKW3dPdA"><img  style="cursor:pointer;" src="https://img.youtube.com/vi/WGSwKW3dPdA/0.jpg" width="200" height="200"></a></li>-->
+        </ul>
+        
+        <form class="chatInputForm flex flex-col  bg-gray-200 clear-both">
+          <div class="flex">
+            <input style="width:85%;" type="text" class="border border-blue w-10/12">
+            <button style="width:15%;" >보내기</button>
+          </div>
+        </form>
+        
+      </div>
+
+    </div>
+    
+    <script src="script.js"></script> 
+    <script src="chatRun.js"></script>
+ 
+  </body>
+</html>

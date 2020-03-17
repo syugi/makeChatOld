@@ -6,68 +6,22 @@
     <title>chatbot test</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="data_project.json"></script>
+    
   </head>
   <body>
-    
-   <!-- <div>-->
-   <!--   <div>-->
-   <!--     <button >사용자추가</button>-->
-   <!--     <ul class="userList bg-gray-200  overflow-auto">-->
-   <!--       <li>선생님/왼쪽</li>-->
-   <!--       <li>학생/오른쪽</li>-->
-   <!--     </ul>-->
-   <!--   </div>-->
-      
-   <!--   <div class="flex">-->
-   <!--       <div class="mr-4">-->
-   <!--        <input type="radio" id="name1" name="chk_position" value="left" checked='checked' ><label for="name1"  >선생님</label>-->
-   <!--        <input type="radio" id="name2" name="chk_position" value="right" ><label for="name2">학생</label>-->
-   <!--       </div> -->
-
-   <!--       <select  name="select_type" id="select_type">-->
-   <!--         <option value="Msg" selected="selected">메세지</option>-->
-   <!--         <option value="Img">이미지</option>-->
-   <!--         <option value="Youtu">유튜브</option>-->
-   <!--          <option value="Btn">버튼</option>-->
-   <!--          <option value="Profile">프로필</option>-->
-   <!--       </select>-->
-   <!--   </div>-->
-    
-      
-   <!--       <input id="inputChat" style="width:30%;" type="text" class="border border-blue w-10/12">-->
-   <!--       <button type="button" class="bg-blue-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="addChat_click(); ">채팅추가</button>-->
-          
-   <!--       <input type="file" id="real-input" class="image_inputType_file" accept="img/*" required multiple>-->
-   <!--       <button class="browse-btn">사진업로드</button>-->
-
-
-   <!--</div>-->
-        
-    <button type="button" class="bg-red-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="location.href='makeChat.html' ">채팅만들기 </button> 
-        
-    <div class="chatDiv">
-      <ul class="chatList bg-gray-200  overflow-auto">
-          <!--<li ><img class="profileImg left" src="test_img.jpeg">상대방</li>-->
-          <li><span class="ml-40">대화가 시작되었습니다</span></li>
-           <!--<li><a class="centerYoutu"  href="http://youtu.be/WGSwKW3dPdA"><img  style="cursor:pointer;" src="https://img.youtube.com/vi/WGSwKW3dPdA/0.jpg" width="200" height="200"></a></li>-->
-      </ul>
-      
-      <form class="chatInputForm flex flex-col  bg-gray-200 clear-both">
-        <!--<div class="flex">-->
-        <!--  <input type="radio" name="chk_info" value="your" >상대방-->
-        <!--  <input type="radio" name="chk_info" value="my" checked="checked">나 -->
-        <!--</div>-->
-        <div class="flex">
-          <input style="width:85%;" type="text" class="border border-blue w-10/12">
-          <button style="width:15%;" >보내기</button>
-        </div>
-      </form>
+    <div class="wrap">
+      <div class="px-4 py-6">
+        <span class="text-lg">프로젝트 리스트</span>
+        <button type="button" class="bg-blue-600 text-white hover:bg-blue-dark font-bold py-2 px-4 rounded m-3 cursor-pointer" onclick="createProject();">채팅 프로젝트 만들기 </button> 
+        <ul class="projectList overflow-auto">
+        </ul>
+      </div>
       
     </div>
-    
-    <script src="script.js"></script> 
-    <script src="chatList.js"></script>
-    
-    <script src="makeChat.js"></script>
+
+  <script src="script.js"></script> 
+ 
   </body>
 </html>
