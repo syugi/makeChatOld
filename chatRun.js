@@ -2,8 +2,6 @@ const chatInputForm = document.querySelector(".chatInputForm"),
 chatInput = chatInputForm.querySelector("input"),
 chatList   = document.querySelector(".chatList");
 
-let chats = [];
-
 let timeId = "";
 
 
@@ -50,7 +48,7 @@ function sendMsg(msg,position,type){
 
     //유튜브 형식이 아닌경우 메세지로 처리 
     if(msg.indexOf("youtu.be") < 0){
-      sendMsg(msg,position,"Msg",userId)
+      sendMsg(msg,position,"Msg")
       return;
     }
   
@@ -155,7 +153,7 @@ function setProfile(profileId){
  */
 function sendNextChat(){
 
-  const chatObj = chatObjArr.shift();
+  const chatObj = chats.shift();
   
   if(chatObj != '' && chatObj != null){
     
@@ -173,12 +171,45 @@ function sendNextChat(){
   }
 }
 
+/**
+ * 채팅 시작 
+ */
+function startChat(){
+  // const li = document.createElement("li");
+  // const span = document.createElement("span");
 
+  // span.innerText = "대화가 시작되었습니다.";
+  // span.style.marginLeft = "10rem";
+
+  // li.appendChild(span);
+  // chatList.appendChild(li);
+
+  sendNextChat();
+}
+
+/**
+ * 채팅 초기화
+ */
+function clearChat(){
+  while (chatList.hasChildNodes()) {
+    chatList.removeChild(chatList.firstChild);
+ }
+
+ loadChats();
+}
 
 /**
  * 채팅 불러오기 
  */
 function loadChats(){
+
+  //JSON 파일에서 데이터 로드 
+  chats = JSON.parse(chatData);
+  console.log(">>> chats : "+ JSON.stringify(chats));
+  
+  //프로젝트 ID로 필터링 
+  chats = filterByPrjId(chats,prjId);
+
   // const loadChats = localStorage.getItem(CHATS_LS)
   // if(loadChats !== null){
   //   const parsedChats = JSON.parse(loadChats);
