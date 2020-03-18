@@ -1,1 +1,1 @@
-profileData = '[{"prjId" : 1, "profileId" : 1 , "profileName": "선생님" , "position" : "left"},{"prjId" : 1, "profileId" : 2 , "profileName": "학생" , "position" : "right"}]';
+profileData = '[{"prjId" : 1, "profId" : 1 , "profName": "선생님" , "position" : "left"},{"prjId" : 1, "profId" : 2 , "profName": "학생" , "position" : "right"}]';

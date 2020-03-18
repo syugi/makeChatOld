@@ -37,7 +37,7 @@ function autoChatToggle(){
 /**
  * 채팅 추가 
  */
-function addChat_click() {
+function addChatClick() {
 
   const chkPos = document.querySelector('input[name="chk_position"]:checked').value;	
   const chkProfId = document.querySelector('input[name="chk_position"]:checked').id;
@@ -48,16 +48,17 @@ function addChat_click() {
   if(inputMsg === null ||inputMsg === ''){
     return;
   }
-  
+ 
   //채팅 저장 
   const chatObj = {
-      position : chkPos 
+      prjId    : prjId
+    , profId   : chkProfId
+    , position : chkPos 
     , type     : selectType 
-    , profileId   : chkProfId
     , msg      : inputMsg
   }
   
-  chats.push({ position:chkPos ,type:selectType , userId: chkProfId, msg: inputMsg, sendYn: false});
+  chats.push(chatObj);
   
 
   //채팅 리스트에 추가 
@@ -108,7 +109,7 @@ function loadChatTextList(prjId){
   chats = filterByPrjId(chats,prjId);
 
   chats.forEach(function(chat){
-     addChatTextList(chat.profileId, chat.position, chat.type, chat.msg);
+     addChatTextList(chat.profId, chat.position, chat.type, chat.msg);
   });
 }
 
@@ -147,7 +148,7 @@ function loadProfile(prjId){
   //프로젝트 ID로 필터링 
   profiles = filterByPrjId(profiles,prjId);
   profiles.forEach(function(prof){
-     addProfileList(prof.profileId, prof.profileName, prof.position);
+     addProfileList(prof.profId, prof.profName, prof.position);
   });
 }
 

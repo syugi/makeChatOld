@@ -4,7 +4,6 @@ chatList   = document.querySelector(".chatList");
 
 let timeId = "";
 
-
 /**
  * 채팅 초기화
  */
@@ -40,9 +39,9 @@ function autoRunChat(){
  * @param msg        : 메세지 내용
  * @param position   : 위치(left,right)
  * @param type       : 타입(버튼-Btn, 이미지-Img, 유튜브-Youtu, 메세지-Msg)
- * 
+ * @param profId     : 프로필 ID
  */
-function sendMsg(msg,position,type){
+function sendMsg(msg,position,type,profId){
   
   if(msg == "" || msg == null){
     return;
@@ -77,11 +76,11 @@ function sendMsg(msg,position,type){
 
     //유튜브 형식이 아닌경우 메세지로 처리 
     if(msg.indexOf("youtu.be") < 0){
-      sendMsg(msg,position,"Msg")
+      sendMsg(msg,position,"Msg",profId)
       return;
     }
   
-    sendMsg(msg,position,"Msg");
+    sendMsg(msg,position,"Msg",profId);
     
     //유튜브 ID 분리 
     const msgSplit = msg.split("/");
@@ -122,7 +121,8 @@ function sendMsg(msg,position,type){
   
   elmt.classList.add("chatMsg"); //채팅 여백 
   
-  li.id = chats.length + 1;
+  li.id    = chats.length + 1;  //리스트 ID
+  li.value = profId;            //프로필 ID
   li.appendChild(elmt);
     
   chatList.appendChild(li);
@@ -136,17 +136,17 @@ function sendMsg(msg,position,type){
 /**
  * 프로필 표시 
  *
- * @param profileId   : 프로필 ID 
+ * @param profId   : 프로필 ID 
  * 
  */
-function setProfile(profileId){
+function setProfile(profId){
     
     let imgPath     = ""; //프로필 이미지 경로
-    let profileName = ""; //프로필 이름 
+    let profName    = ""; //프로필 이름 
     let position    = ""; //위치(left,right)
     
     /* To-do
-    *  profileId로 프로필 사진 및 이름 불러오기 
+    *  profId로 프로필 사진 및 이름 불러오기 
     *
     */
     
@@ -157,7 +157,7 @@ function setProfile(profileId){
     img.classList.add("profileImg");
 
     const span = document.createElement("span");
-    span.innerText = profileId;
+    span.innerText = profId;
     span.classList.add("profileName");
     
    
@@ -191,10 +191,17 @@ function sendNextChat(){
     if(msg != '' && msg != null){
         
         /* To-do
-        *  profileId가 전에 보낸 채팅 id랑 같지 않으면 프로필 전송하기 
+        *  profId가 전에 보낸 채팅 id랑 같지 않으면 프로필 전송하기 
         */ 
-      
-        sendMsg(msg, chatObj.position, chatObj.type, chatObj.userId);   // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 이름
+        const liList = document.querySelectorAll(".chatList li");
+        const prevProfId = liList[liList.length-1].value;
+       // if(chatObj.profId);
+       
+      // let tempMsg = liList.length;
+       
+       // sendMsg(tempMsg, chatObj.position, chatObj.type, chatObj.profId); 
+        
+        sendMsg(msg, chatObj.position, chatObj.type , chatObj.profId);   // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 프로필 ID
     }
     
   }

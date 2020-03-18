@@ -45,3 +45,4 @@ function getCurrPrjName(prjId){
   
   return currPrjName; 
 }
+
