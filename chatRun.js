@@ -119,10 +119,11 @@ function sendMsg(msg,position,type,profId){
     
   }
   
-  elmt.classList.add("chatMsg"); //채팅 여백 
+  elmt.classList.add("chatMsg")+1; //채팅 여백 
   
-  li.id    = chats.length + 1;  //리스트 ID
-  li.value = profId;            //프로필 ID
+  console.log(profId);
+  li.id    = chats.length;  //리스트 ID
+  li.value = profId;        //프로필 ID
   li.appendChild(elmt);
     
   chatList.appendChild(li);
@@ -143,8 +144,12 @@ function setProfile(profId){
     
     //프로필 정보 조회 
     const profInfo = getProfInfo(profId);
-     
-    const imgPath     = profInfo.img;      //프로필 이미지 경로
+
+    if(profInfo == null){
+      return;
+    }
+
+    const imgPath     = profInfo.imgPath;  //프로필 이미지 경로
     const profName    = profInfo.profName; //프로필 이름 
     const position    = profInfo.position; //위치(left,right)
     
@@ -157,7 +162,7 @@ function setProfile(profId){
     img.classList.add("profileImg");
 
     const span = document.createElement("span");
-    span.innerText = profId;
+    span.innerText = profName;
     span.classList.add("profileName");
     
    
@@ -189,16 +194,20 @@ function sendNextChat(){
     const msg  = chatObj.msg;
     
     if(msg != '' && msg != null){
-        
-        /* To-do
-        *  profId가 전에 보낸 채팅 id랑 같지 않으면 프로필 전송하기 
-        */ 
-      //  const liList = document.querySelectorAll(".chatList li");
-       // const prevProfId = liList[liList.length-1].value;
-       // if((prevProfId == null) || (chatObj.profId != prevProfId)){
-      //    setProfile(chatObj.profId);
-      // }
 
+        //profId가 전에 보낸 채팅 id랑 같지 않으면 프로필 전송하기 
+        const liList = document.querySelectorAll(".chatList li");
+        
+        if(liList.length == 0){
+          setProfile(chatObj.profId);
+        }else{
+          const prevProfId = liList[liList.length-1].value;
+          if(prevProfId == null || chatObj.profId != prevProfId){ 
+            setProfile(chatObj.profId);
+          }
+        }
+
+        //메세지 전송 
         sendMsg(msg, chatObj.position, chatObj.type , chatObj.profId);   // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 프로필 ID
     }
     
