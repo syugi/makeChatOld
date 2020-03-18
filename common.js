@@ -46,3 +46,19 @@ function getCurrPrjName(prjId){
   return currPrjName; 
 }
 
+/**
+ * 프로필 정보 조회 
+ * @param profId : 프로필 ID
+ * @return 
+ */
+function getProfInfo(profId){
+  
+  let profInfo = [];
+  
+  const profilList = JSON.parse(profileData);
+  let resultList = profilList.filter(function(prof){
+    return prof.profId === parseInt(profId);
+  });
+  
+  return resultList[0]; 
+}

@@ -141,15 +141,15 @@ function sendMsg(msg,position,type,profId){
  */
 function setProfile(profId){
     
-    let imgPath     = ""; //프로필 이미지 경로
-    let profName    = ""; //프로필 이름 
-    let position    = ""; //위치(left,right)
+    //프로필 정보 조회 
+    const profInfo = getProfInfo(profId);
+     
+    const imgPath     = profInfo.img;      //프로필 이미지 경로
+    const profName    = profInfo.profName; //프로필 이름 
+    const position    = profInfo.position; //위치(left,right)
     
-    /* To-do
-    *  profId로 프로필 사진 및 이름 불러오기 
-    *
-    */
     
+    //프로필 추가 
     const li = document.createElement("li");
     
     const img = document.createElement("img");
@@ -193,14 +193,12 @@ function sendNextChat(){
         /* To-do
         *  profId가 전에 보낸 채팅 id랑 같지 않으면 프로필 전송하기 
         */ 
-        const liList = document.querySelectorAll(".chatList li");
-        const prevProfId = liList[liList.length-1].value;
-       // if(chatObj.profId);
-       
-      // let tempMsg = liList.length;
-       
-       // sendMsg(tempMsg, chatObj.position, chatObj.type, chatObj.profId); 
-        
+      //  const liList = document.querySelectorAll(".chatList li");
+       // const prevProfId = liList[liList.length-1].value;
+       // if((prevProfId == null) || (chatObj.profId != prevProfId)){
+      //    setProfile(chatObj.profId);
+      // }
+
         sendMsg(msg, chatObj.position, chatObj.type , chatObj.profId);   // 메세지, 위치, 타입(msg:메세지, img:이미지, btn:버튼), 프로필 ID
     }
     
