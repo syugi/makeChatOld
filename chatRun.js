@@ -6,6 +6,35 @@ let timeId = "";
 
 
 /**
+ * 채팅 초기화
+ */
+function clearChat(){
+  
+  while (chatList.hasChildNodes()) {
+    chatList.removeChild(chatList.firstChild);
+ }
+
+ loadChats();
+ 
+}
+
+/**
+ * 채팅 자동 실행 멈춤
+ */
+function stopAutoRunChat(){
+    if(timeId != null) {
+        clearInterval(timeId);
+    }
+}
+
+/**
+ * 채팅 자동 실행 
+ */
+function autoRunChat(){
+  timeId = setInterval(sendNextChat, 1000);
+}
+
+/**
  * 메세지 표시 
  *
  * @param msg        : 메세지 내용
@@ -187,16 +216,6 @@ function startChat(){
   sendNextChat();
 }
 
-/**
- * 채팅 초기화
- */
-function clearChat(){
-  while (chatList.hasChildNodes()) {
-    chatList.removeChild(chatList.firstChild);
- }
-
- loadChats();
-}
 
 /**
  * 채팅 불러오기 
@@ -210,13 +229,6 @@ function loadChats(){
   //프로젝트 ID로 필터링 
   chats = filterByPrjId(chats,prjId);
 
-  // const loadChats = localStorage.getItem(CHATS_LS)
-  // if(loadChats !== null){
-  //   const parsedChats = JSON.parse(loadChats);
-  //   parsedChats.forEash(function(chat){
-  //     sendMsg(chat,"right");
-  //   });
-  // }
 }
 
 
@@ -229,7 +241,6 @@ function handleChatButtonClick(event){
  
   var el = document.getElementById(chats.length + 1);
   chatList.removeChild(el);
-  //timeId = setInterval(sendNextChat, 1000);
   
 }
 
@@ -260,9 +271,6 @@ function init(){
   //채팅 수동 보내기 
   chatInputForm.addEventListener("submit",handleSubmit);
 
-  //채팅 표시 - 자동표시 
-  //timeId = setInterval(sendNextChat, 1000);
-   
   //채팅 표시 - 클릭 이벤트 
   chatList.addEventListener("click",handleChatListClick);
 

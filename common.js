@@ -1,6 +1,8 @@
 
+let projects = [];
 let chats = [];
 let profiles  = []; 
+
 let prjId  = "";
 
 /**
@@ -24,4 +26,22 @@ function filterByPrjId(arrList, prjId){
     return arr.prjId === parseInt(prjId);
   });
   return resultList;
+}
+
+/**
+ * 현재 프로젝트 이름  
+ * @param prjId : 프로젝트 ID
+ * @return 
+ */
+function getCurrPrjName(prjId){
+  
+  let currPrjName = "";
+  
+  projects = JSON.parse(projectsData);
+  const currProject = filterByPrjId(projects,prjId);
+  if(currProject.length > 0 ){
+    currPrjName = currProject[0].prjName;
+  }
+  
+  return currPrjName; 
 }

@@ -1,7 +1,5 @@
 const projectList   = document.querySelector(".projectList");
 
-let projects = [];
-
 const userId = "arim"; //일단 하드코딩 
 
 

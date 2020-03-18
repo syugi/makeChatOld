@@ -1,20 +1,38 @@
 const profileList   = document.querySelector(".profileList"),
 chatTextList   = document.querySelector(".chatTextList"),
-select_type = document.getElementById("select_type");
+select_type = document.getElementById("select_type"),
+projectName = document.querySelector(".projectName");
 
-/**
- * 채팅 리스트 실행 초기화 
- */
-function chatRunClr(){
-  clearChat();
+var autoChatYn = new Boolean(false);
+
+
+
+function autoChatToggle(){
+  
+  const chatAutoRunBtn   = document.querySelector("#chatAutoRunBtn");
+  
+  //자동실행 중인 경우 
+  if(autoChatYn == true){
+    
+    autoChatYn = false; 
+    
+    chatAutoRunBtn.style.background ="";
+    chatAutoRunBtn.innerText = "채팅자동실행";
+    stopAutoRunChat();
+    
+    
+  //자동실행 중이 아닌 경우 
+  }else{
+    
+    autoChatYn = true; 
+    
+    chatAutoRunBtn.style.background = "#e53e3e";
+    chatAutoRunBtn.innerText = "채팅자동실행 ON";
+    autoRunChat();
+    
+  }
 }
 
-/**
- * 채팅 리스트 실행 테스트  
- */
-function chatRunTest(){
-  startChat();
-}
 
 /**
  * 채팅 추가 
@@ -26,6 +44,10 @@ function addChat_click() {
   const selectType = select_type.options[select_type.selectedIndex].value
   const inputMsg = inputChat.value;
   console.log(">>>chkProfId : "+ chkProfId);
+  
+  if(inputMsg === null ||inputMsg === ''){
+    return;
+  }
   
   //채팅 저장 
   const chatObj = {
@@ -130,9 +152,14 @@ function loadProfile(prjId){
 }
 
 
+
+
 function init(){
   prjId = getParameterByName("prjId");
   console.log(">>>>>>>>prjId : "+getParameterByName("prjId"));
+  
+  //프로젝트 명 세팅 
+  projectName.innerText = getCurrPrjName(prjId);
 
   //대화명 리스트 조회 
   loadProfile(prjId);
