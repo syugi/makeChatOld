@@ -2,6 +2,7 @@ const projectList   = document.querySelector(".projectList");
 
 const userId = "arim"; //일단 하드코딩 
 
+let projects = [];
 
 /**
  * 채팅관리 화면으로 이동 
@@ -15,14 +16,20 @@ function moveChatSetting(prjId){
  */
 function getPrjId(){
 
-  return parseInt(projects[projects.length-1].prjId) + 1;
+  const len = projects.length;
+  if(len < 1){
+    return 1;
+    
+  }else{
+    return parseInt(projects[projects.length-1].prjId) + 1;
+  }
 }
 
 /**
  * 프로젝트 생성
  */
 function createProject(){
-  
+  console.log("1111");
   const newPrjId   = getPrjId();
   const newPrjName = "NEW PROJECT - "+newPrjId;
   

@@ -1,5 +1,5 @@
 
-let projects = [];
+
 let chats = [];
 let profiles  = []; 
 
