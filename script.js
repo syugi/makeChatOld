@@ -4,6 +4,8 @@ const userId = "arim"; //일단 하드코딩
 
 let projects = [];
 
+const HOME_URL ="http://chatBot.altnr23.repl.co/";
+
 /**
  * 채팅관리 화면으로 이동 
  */
@@ -42,6 +44,20 @@ function createProject(){
   projects.push(prjObj);
   
   addProjectList(newPrjId,newPrjName);
+}
+
+
+
+/**
+ * 프로젝트 공유 버튼 이벤트  
+ */
+function handleUrlClick(event){
+  const btn = event.target;
+  const li  = btn.parentNode;
+  
+  const url= HOME_URL+"chatRun.html?prjId="+li.id;
+  
+  window.open(url, '_blank'); 
 }
 
 /**
@@ -87,6 +103,7 @@ function addProjectList(prjId,prjName){
   const li       = document.createElement("li");
   const modBtn   = document.createElement("Button");
   const delBtn   = document.createElement("Button");
+  const urlBtn   = document.createElement("Button");
   const idSpan   = document.createElement("span");
   const nameSpan = document.createElement("span");
   
@@ -96,6 +113,10 @@ function addProjectList(prjId,prjName){
   delBtn.innerText = "삭제";
   delBtn.addEventListener("click", handleDeleteClick);
   
+  urlBtn.innerText = "공유";
+  urlBtn.addEventListener("click", handleUrlClick);
+  
+  
   idSpan.innerText = prjId;
   nameSpan.innerText = prjName;
   
@@ -103,7 +124,8 @@ function addProjectList(prjId,prjName){
   li.appendChild(nameSpan);
   li.appendChild(modBtn);
   li.appendChild(delBtn);
-  
+  li.appendChild(urlBtn);
+   
   li.id = prjId;
   
   projectList.appendChild(li);

@@ -234,7 +234,7 @@ function startChat(){
 /**
  * 채팅 불러오기 
  */
-function loadChats(){
+function loadChats(prjId){
 
   //JSON 파일에서 데이터 로드 
   chats = JSON.parse(chatData);
@@ -279,8 +279,11 @@ function handleSubmit(event){
 
 function init(){
 
+  prjId = getParameterByName("prjId");
+  console.log(">>>>>>>>prjId : "+getParameterByName("prjId"));
+  
   //채팅 불러오기  
-  loadChats();
+  loadChats(prjId);
   
   //채팅 수동 보내기 
   chatInputForm.addEventListener("submit",handleSubmit);
