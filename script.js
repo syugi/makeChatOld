@@ -4,7 +4,7 @@ const userId = "arim"; //일단 하드코딩
 
 let projects = [];
 
-const HOME_URL ="http://chatBot.altnr23.repl.co/";
+const HOME_URL ="https://chatBot.altnr23.repl.co/";
 
 /**
  * 채팅관리 화면으로 이동 
