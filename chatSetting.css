@@ -5,3 +5,8 @@ span{
 .autoRun{
  	background-color: #e53e3e;
 }
+
+.wrap{
+  width:600px;  
+  height:700px;
+}

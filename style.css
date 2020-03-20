@@ -1,5 +1,10 @@
 /* --------------- index.html -------------------*/
 
+.wrap{
+  width:600px;  
+  height:700px;
+}
+
 .projectList li{
   padding:7px; 
   margin:5px;

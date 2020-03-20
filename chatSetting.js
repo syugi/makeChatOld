@@ -78,14 +78,17 @@ function addChatTextList(profId, pos, type, msg){
   const posSpan  = document.createElement("span");
   const typeSpan = document.createElement("span");
   const msgSpan  = document.createElement("span");
+  const nameSpan  = document.createElement("span");
   
-  // nameSpan.innderText = name;
+  const profInfo = getProfInfo(profId);
+  
+  nameSpan.innerText = profInfo.profName+" : ";
   posSpan.innerText = pos;
-  typeSpan.innerText = type;
+  typeSpan.innerText = "["+type+"]";
   msgSpan.innerText = msg;
   
-  // li.appendChild(nameSpan);
-  li.appendChild(posSpan);
+  li.appendChild(nameSpan);
+  //li.appendChild(posSpan);
   li.appendChild(typeSpan);
   li.appendChild(msgSpan);
   // li.id = id; 
@@ -127,7 +130,7 @@ function addProfileList(profId, name, pos){
   posSpan.innerText = pos;
   
   li.appendChild(nameSpan);
-  li.appendChild(posSpan);
+  //li.appendChild(posSpan);
   li.id = profId; 
   
   profileList.appendChild(li);
